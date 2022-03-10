@@ -26,5 +26,5 @@ class UserDto(
 
     @SerializedName("transaction_history")
     @Expose
-    var transactionHistory: List<TransactionHistory>? = null
+    var transactionHistory: List<TransactionHistoryDto>? = null
 )
