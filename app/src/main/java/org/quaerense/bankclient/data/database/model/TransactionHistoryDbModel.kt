@@ -4,9 +4,9 @@ import androidx.room.Entity
 
 @Entity(tableName = "transaction_history")
 data class TransactionHistoryDbModel(
-    var userId: String,
-    var title: String?,
-    var iconUrl: String?,
-    var date: String?,
-    var amount: String?
+    val userId: String,
+    val title: String?,
+    val iconUrl: String?,
+    val date: String?,
+    val amount: String?
 )
