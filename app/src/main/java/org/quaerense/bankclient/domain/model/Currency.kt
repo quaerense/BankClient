@@ -1,7 +1,7 @@
 package org.quaerense.bankclient.domain.model
 
 data class Currency(
-    var charCode: String?,
-    var name: String?,
-    var value: String?
+    val charCode: String?,
+    val name: String?,
+    val value: String?
 )
