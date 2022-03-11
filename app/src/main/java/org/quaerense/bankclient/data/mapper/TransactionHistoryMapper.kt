@@ -6,22 +6,42 @@ import org.quaerense.bankclient.domain.model.TransactionHistory
 
 class TransactionHistoryMapper {
 
-    fun mapDtoToDbModel(userId: Long, dto: TransactionHistoryDto) = with(dto) {
-        TransactionHistoryDbModel(
-            userId = userId,
-            title = title,
-            iconUrl = iconUrl,
-            date = date,
-            amount = amount
-        )
+    fun mapDtoToDbModel(
+        userCardNumber: String,
+        dto: List<TransactionHistoryDto>?
+    ): List<TransactionHistoryDbModel> {
+        val result = mutableListOf<TransactionHistoryDbModel>()
+        if (dto == null) return result
+
+        dto.map {
+            result.add(
+                TransactionHistoryDbModel(
+                    userCardNumber = userCardNumber,
+                    title = it.title,
+                    iconUrl = it.iconUrl,
+                    date = it.date,
+                    amount = it.amount
+                )
+            )
+        }
+
+        return result
     }
 
-    fun mapDbModelToEntity(dbModel: TransactionHistoryDbModel) = with(dbModel) {
-        TransactionHistory(
-            title = title,
-            iconUrl = iconUrl,
-            date = date,
-            amount = amount
-        )
+    fun mapDbModelToEntity(dbModel: List<TransactionHistoryDbModel>): List<TransactionHistory> {
+        val result = mutableListOf<TransactionHistory>()
+
+        dbModel.map {
+            result.add(
+                TransactionHistory(
+                    title = it.title,
+                    iconUrl = it.iconUrl,
+                    date = it.date,
+                    amount = it.amount
+                )
+            )
+        }
+
+        return result
     }
 }

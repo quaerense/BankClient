@@ -4,16 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import org.quaerense.bankclient.data.dao.CurrencyDao
+import org.quaerense.bankclient.data.dao.UserDao
 import org.quaerense.bankclient.data.database.model.CurrencyDbModel
 import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
 import org.quaerense.bankclient.data.database.model.UserDbModel
 
 @Database(
     entities = [CurrencyDbModel::class, TransactionHistoryDbModel::class, UserDbModel::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun userDao(): UserDao
+
+    abstract fun currencyDao(): CurrencyDao
+
     companion object {
         private var db: AppDatabase? = null
         private const val DB_NAME = "bank.db"

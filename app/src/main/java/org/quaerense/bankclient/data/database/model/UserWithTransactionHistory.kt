@@ -6,8 +6,8 @@ import androidx.room.Relation
 data class UserWithTransactionHistory(
     @Embedded val user: UserDbModel,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "userId"
+        parentColumn = "cardNumber",
+        entityColumn = "userCardNumber"
     )
     val transactionHistory: List<TransactionHistoryDbModel>
 )

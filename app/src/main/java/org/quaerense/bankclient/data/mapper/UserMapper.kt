@@ -9,13 +9,15 @@ import org.quaerense.bankclient.domain.model.User
 class UserMapper {
 
     fun mapDtoToDbModel(dto: UserDto) = with(dto) {
-        UserDbModel(
-            cardNumber = cardNumber,
-            type = type,
-            cardholderName = cardholderName,
-            valid = valid,
-            balance = balance
-        )
+        cardNumber?.let {
+            UserDbModel(
+                cardNumber = it,
+                type = type,
+                cardholderName = cardholderName,
+                valid = valid,
+                balance = balance
+            )
+        }
     }
 
     fun mapDbModelToEntity(

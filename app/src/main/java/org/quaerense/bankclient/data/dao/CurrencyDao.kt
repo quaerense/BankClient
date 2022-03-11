@@ -11,7 +11,7 @@ import org.quaerense.bankclient.data.database.model.CurrencyDbModel
 interface CurrencyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(currency: CurrencyDbModel)
+    suspend fun insertAll(currencies: List<CurrencyDbModel>)
 
     @Query("SELECT * FROM currency WHERE charCode = :charCode LIMIT 1")
     fun get(charCode: String): LiveData<CurrencyDbModel>

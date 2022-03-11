@@ -3,21 +3,19 @@ package org.quaerense.bankclient.presentation
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.quaerense.bankclient.R
-import org.quaerense.bankclient.data.network.ApiFactory
+import org.quaerense.bankclient.data.repository.UserRepositoryImpl
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val coroutineScope = CoroutineScope(Dispatchers.Main)
-        coroutineScope.launch {
-            val info = ApiFactory.apiService.getCurrencyRate()
-            Log.d("MainActivity", info.toString())
+        val repository = UserRepositoryImpl(application)
+        repository.loadData()
+        repository.getUserList().observe(this) {
+            Log.d("MainActivity", it.toString())
         }
     }
 }

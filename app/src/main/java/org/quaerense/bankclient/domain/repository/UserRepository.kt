@@ -5,9 +5,9 @@ import org.quaerense.bankclient.domain.model.User
 
 interface UserRepository {
 
-    fun getUsersList(): LiveData<List<User>>
-
-    fun getUser(): LiveData<User>
-
     fun loadData()
+
+    fun getUserList(): LiveData<List<User>>
+
+    fun getUser(cardNumber: String): LiveData<User>
 }

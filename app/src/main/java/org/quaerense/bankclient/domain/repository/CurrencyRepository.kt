@@ -1,7 +1,7 @@
 package org.quaerense.bankclient.domain.repository
 
 import androidx.lifecycle.LiveData
-import java.util.*
+import org.quaerense.bankclient.domain.model.Currency
 
 interface CurrencyRepository {
 
