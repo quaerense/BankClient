@@ -10,7 +10,7 @@ import org.quaerense.bankclient.data.database.model.UserDbModel
 
 @Database(
     entities = [CurrencyDbModel::class, TransactionHistoryDbModel::class, UserDbModel::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
