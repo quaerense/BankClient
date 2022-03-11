@@ -3,7 +3,7 @@ package org.quaerense.bankclient.data.network.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class UserDto(
+data class UserDto(
     @SerializedName("card_number")
     @Expose
     var cardNumber: String? = null,
