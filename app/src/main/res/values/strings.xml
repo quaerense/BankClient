@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Bank Client</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description_card_logo">Card logo</string>
+    <string name="description_profile_logo">Profile logo</string>
+    <string name="valid_thru">VALID THRU</string>
+    <string name="label_your_balance">Your balance</string>
+    <string name="label_change_currency">Change currency</string>
+    <string name="char_gbp">£</string>
+    <string name="label_gbp">GBP</string>
+    <string name="char_eur">€</string>
+    <string name="label_eur">EUR</string>
+    <string name="char_rub">₽</string>
+    <string name="label_rub">RUB</string>
+    <string name="label_history">History</string>
+    <string name="description_transaction_logo">Transaction logo</string>
 </resources>

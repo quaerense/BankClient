@@ -9,8 +9,10 @@ class ConvertCurrencyUseCase(private val repository: CurrencyRepository) {
         convertibleCurrencyCharCode: String,
         targetCurrencyCharCode: String
     ): Double {
-        val convertibleCurrencyValue = repository.getCurrency(convertibleCurrencyCharCode).value ?: UNDEFINED_VALUE
-        val targetCurrencyValue = repository.getCurrency(targetCurrencyCharCode).value ?: UNDEFINED_VALUE
+        val convertibleCurrencyValue =
+            repository.getCurrency(convertibleCurrencyCharCode).value ?: UNDEFINED_VALUE
+        val targetCurrencyValue =
+            repository.getCurrency(targetCurrencyCharCode).value ?: UNDEFINED_VALUE
 
         return amount * convertibleCurrencyValue * targetCurrencyValue
     }

@@ -35,7 +35,7 @@ class UserMapper {
     }
 
     private fun getIconId(type: String?) = when (type) {
-        MASTERCARD -> R.drawable.ic_logo_matercard
+        MASTERCARD -> R.drawable.ic_logo_mastercard
         VISA -> R.drawable.ic_logo_visa
         UNION_PAY -> R.drawable.ic_logo_union_pay
         else -> UNDEFINED_LOGO
