@@ -29,7 +29,7 @@ class UserMapper {
             iconId = getIconId(type),
             cardholderName = cardholderName,
             valid = valid,
-            balance = balance.toString(),
+            balance = balance,
             transactionHistory = transactionHistory
         )
     }

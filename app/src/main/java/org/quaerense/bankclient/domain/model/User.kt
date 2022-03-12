@@ -5,6 +5,6 @@ data class User(
     val iconId: Int,
     val cardholderName: String?,
     val valid: String?,
-    val balance: String?,
+    val balance: Double?,
     val transactionHistory: List<TransactionHistory>?
 )

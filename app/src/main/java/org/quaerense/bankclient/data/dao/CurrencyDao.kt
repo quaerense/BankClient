@@ -1,6 +1,5 @@
 package org.quaerense.bankclient.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,5 +13,5 @@ interface CurrencyDao {
     suspend fun insertAll(currencies: List<CurrencyDbModel>)
 
     @Query("SELECT * FROM currency WHERE charCode = :charCode LIMIT 1")
-    fun get(charCode: String): LiveData<CurrencyDbModel>
+    fun get(charCode: String): CurrencyDbModel
 }

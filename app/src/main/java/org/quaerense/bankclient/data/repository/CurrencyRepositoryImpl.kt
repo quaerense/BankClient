@@ -1,8 +1,6 @@
 package org.quaerense.bankclient.data.repository
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import org.quaerense.bankclient.data.database.AppDatabase
@@ -25,9 +23,7 @@ class CurrencyRepositoryImpl(private val application: Application) : CurrencyRep
         )
     }
 
-    override fun getCurrency(charCode: String): LiveData<Currency> {
-        return Transformations.map(dao.get(charCode)) {
-            mapper.mapDbModelToEntity(it)
-        }
+    override suspend fun getCurrency(charCode: String): Currency {
+        return mapper.mapDbModelToEntity(dao.get(charCode))
     }
 }

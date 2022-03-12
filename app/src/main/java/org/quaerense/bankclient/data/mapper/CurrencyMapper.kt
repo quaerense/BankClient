@@ -29,6 +29,6 @@ class CurrencyMapper {
     }
 
     fun mapDbModelToEntity(dbModel: CurrencyDbModel) = with(dbModel) {
-        Currency(charCode, name, value.toString())
+        Currency(charCode, name, value)
     }
 }
