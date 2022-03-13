@@ -2,9 +2,10 @@ package org.quaerense.bankclient.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
 import org.quaerense.bankclient.data.database.model.CardDbModel
 import org.quaerense.bankclient.data.database.model.CardWithTransactionHistory
+import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
+import org.quaerense.bankclient.domain.model.Card
 
 @Dao
 interface CardDao {
@@ -20,6 +21,6 @@ interface CardDao {
     fun getAll(): LiveData<List<CardWithTransactionHistory>>
 
     @Transaction
-    @Query("SELECT * FROM card WHERE cardNumber = :cardNumber")
+    @Query("SELECT * FROM card WHERE cardNumber = :cardNumber LIMIT 1")
     fun get(cardNumber: String): LiveData<CardWithTransactionHistory>
 }

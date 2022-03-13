@@ -5,8 +5,8 @@ import androidx.lifecycle.Transformations
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import org.quaerense.bankclient.data.database.AppDatabase
-import org.quaerense.bankclient.data.mapper.TransactionHistoryMapper
 import org.quaerense.bankclient.data.mapper.CardMapper
+import org.quaerense.bankclient.data.mapper.TransactionHistoryMapper
 import org.quaerense.bankclient.data.worker.RefreshCardWorker
 import org.quaerense.bankclient.domain.repository.CardRepository
 
