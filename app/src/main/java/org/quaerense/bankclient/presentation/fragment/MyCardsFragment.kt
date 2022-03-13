@@ -30,15 +30,15 @@ class MyCardsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = CardsAdapter()
-        adapter.onCardClickListener = { user ->
-            user.cardNumber?.let { cardNumber ->
+        adapter.onCardClickListener = { card ->
+            card.cardNumber?.let { cardNumber ->
                 startMainFragment(cardNumber)
             }
         }
         binding.rvCards.adapter = adapter
 
         val viewModel = ViewModelProvider(this)[MyCardsViewModel::class.java]
-        viewModel.getUserListUseCase().observe(viewLifecycleOwner) {
+        viewModel.getCardListUseCase().observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }

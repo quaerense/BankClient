@@ -5,19 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import org.quaerense.bankclient.data.dao.CurrencyDao
-import org.quaerense.bankclient.data.dao.UserDao
+import org.quaerense.bankclient.data.dao.CardDao
 import org.quaerense.bankclient.data.database.model.CurrencyDbModel
 import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
-import org.quaerense.bankclient.data.database.model.UserDbModel
+import org.quaerense.bankclient.data.database.model.CardDbModel
 
 @Database(
-    entities = [CurrencyDbModel::class, TransactionHistoryDbModel::class, UserDbModel::class],
-    version = 3,
+    entities = [CurrencyDbModel::class, TransactionHistoryDbModel::class, CardDbModel::class],
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun userDao(): UserDao
+    abstract fun cardDao(): CardDao
 
     abstract fun currencyDao(): CurrencyDao
 

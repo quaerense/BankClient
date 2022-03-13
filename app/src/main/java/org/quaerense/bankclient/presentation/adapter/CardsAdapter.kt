@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.quaerense.bankclient.databinding.CardItemBinding
-import org.quaerense.bankclient.domain.model.User
+import org.quaerense.bankclient.domain.model.Card
 
-class CardsAdapter : ListAdapter<User, CardViewHolder>(CardDiffCallback) {
-    var onCardClickListener: ((item: User) -> Unit)? = null
+class CardsAdapter : ListAdapter<Card, CardViewHolder>(CardDiffCallback) {
+    var onCardClickListener: ((item: Card) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val binding = CardItemBinding.inflate(

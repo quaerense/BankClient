@@ -1,7 +1,7 @@
 package org.quaerense.bankclient.data.network
 
 import org.quaerense.bankclient.data.network.model.CurrencyJsonContainerDto
-import org.quaerense.bankclient.data.network.model.UserContainerDto
+import org.quaerense.bankclient.data.network.model.CardContainerDto
 import retrofit2.http.GET
 import retrofit2.http.Url
 
@@ -14,7 +14,7 @@ interface ApiService {
     @GET
     suspend fun getUsersAccountData(
         @Url url: String = URL_USERS_ACCOUNT_DATA
-    ): UserContainerDto
+    ): CardContainerDto
 
     companion object {
 

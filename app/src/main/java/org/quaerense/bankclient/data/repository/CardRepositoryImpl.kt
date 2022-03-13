@@ -6,35 +6,35 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import org.quaerense.bankclient.data.database.AppDatabase
 import org.quaerense.bankclient.data.mapper.TransactionHistoryMapper
-import org.quaerense.bankclient.data.mapper.UserMapper
-import org.quaerense.bankclient.data.worker.RefreshUserWorker
-import org.quaerense.bankclient.domain.repository.UserRepository
+import org.quaerense.bankclient.data.mapper.CardMapper
+import org.quaerense.bankclient.data.worker.RefreshCardWorker
+import org.quaerense.bankclient.domain.repository.CardRepository
 
-class UserRepositoryImpl(private val application: Application) : UserRepository {
+class CardRepositoryImpl(private val application: Application) : CardRepository {
 
-    private val dao = AppDatabase.getInstance(application).userDao()
-    private val userMapper = UserMapper()
+    private val dao = AppDatabase.getInstance(application).cardDao()
+    private val cardMapper = CardMapper()
     private val transactionHistoryMapper = TransactionHistoryMapper()
 
     override fun loadData() {
         val workManager = WorkManager.getInstance(application)
         workManager.enqueueUniqueWork(
-            RefreshUserWorker.NAME,
+            RefreshCardWorker.NAME,
             ExistingWorkPolicy.REPLACE,
-            RefreshUserWorker.makeRequest()
+            RefreshCardWorker.makeRequest()
         )
     }
 
-    override fun getUserList() = Transformations.map(dao.getAll()) { list ->
+    override fun getCardList() = Transformations.map(dao.getAll()) { list ->
         list.map {
             val transactionHistory =
                 transactionHistoryMapper.mapDbModelToEntity(it.transactionHistory)
-            userMapper.mapDbModelToEntity(it.user, transactionHistory)
+            cardMapper.mapDbModelToEntity(it.card, transactionHistory)
         }
     }
 
-    override fun getUser(cardNumber: String) = Transformations.map(dao.get(cardNumber)) {
+    override fun getCard(cardNumber: String) = Transformations.map(dao.get(cardNumber)) {
         val transactionHistory = transactionHistoryMapper.mapDbModelToEntity(it.transactionHistory)
-        userMapper.mapDbModelToEntity(it.user, transactionHistory)
+        cardMapper.mapDbModelToEntity(it.card, transactionHistory)
     }
 }

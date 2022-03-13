@@ -7,7 +7,7 @@ import org.quaerense.bankclient.domain.model.TransactionHistory
 class TransactionHistoryMapper {
 
     fun mapDtoToDbModel(
-        userCardNumber: String,
+        cardNumber: String,
         dto: List<TransactionHistoryDto>?
     ): List<TransactionHistoryDbModel> {
         val result = mutableListOf<TransactionHistoryDbModel>()
@@ -16,7 +16,7 @@ class TransactionHistoryMapper {
         dto.map {
             result.add(
                 TransactionHistoryDbModel(
-                    userCardNumber = userCardNumber,
+                    cardNumber = cardNumber,
                     title = it.title,
                     iconUrl = it.iconUrl,
                     date = it.date,

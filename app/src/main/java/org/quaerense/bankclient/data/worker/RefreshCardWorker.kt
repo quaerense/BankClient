@@ -8,33 +8,33 @@ import androidx.work.WorkerParameters
 import kotlinx.coroutines.delay
 import org.quaerense.bankclient.data.database.AppDatabase
 import org.quaerense.bankclient.data.mapper.TransactionHistoryMapper
-import org.quaerense.bankclient.data.mapper.UserMapper
+import org.quaerense.bankclient.data.mapper.CardMapper
 import org.quaerense.bankclient.data.network.ApiFactory
 
-class RefreshUserWorker(
+class RefreshCardWorker(
     context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
     private val apiService = ApiFactory.apiService
-    private val dao = AppDatabase.getInstance(context).userDao()
-    private val userMapper = UserMapper()
+    private val dao = AppDatabase.getInstance(context).cardDao()
+    private val cardMapper = CardMapper()
     private val transactionHistoryMapper = TransactionHistoryMapper()
 
     override suspend fun doWork(): Result {
         while (true) {
             try {
-                val userContainerDto = apiService.getUsersAccountData()
-                val users = userContainerDto.users
-                users?.map {
-                    val userDbModel = userMapper.mapDtoToDbModel(it)
-                    if (userDbModel != null) {
+                val cardContainerDto = apiService.getUsersAccountData()
+                val cards = cardContainerDto.cards
+                cards?.map {
+                    val cardDbModel = cardMapper.mapDtoToDbModel(it)
+                    if (cardDbModel != null) {
                         val transactionHistoryDbModel =
                             transactionHistoryMapper.mapDtoToDbModel(
-                                userDbModel.cardNumber,
+                                cardDbModel.cardNumber,
                                 it.transactionHistory
                             )
-                        dao.insert(userDbModel)
+                        dao.insert(cardDbModel)
                         dao.insertTransactionHistory(transactionHistoryDbModel)
                     }
                 }
@@ -48,12 +48,12 @@ class RefreshUserWorker(
 
     companion object {
 
-        const val NAME = "RefreshUserWorker"
+        const val NAME = "RefreshCardWorker"
 
         private const val DELAY_MILLIS = 300000L
 
         fun makeRequest(): OneTimeWorkRequest {
-            return OneTimeWorkRequestBuilder<RefreshUserWorker>().build()
+            return OneTimeWorkRequestBuilder<RefreshCardWorker>().build()
         }
     }
 }

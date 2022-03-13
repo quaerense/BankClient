@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "transaction_history")
 data class TransactionHistoryDbModel(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val userCardNumber: String,
+    val cardNumber: String,
     val title: String?,
     val iconUrl: String?,
     val date: String?,

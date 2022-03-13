@@ -1,6 +1,6 @@
 package org.quaerense.bankclient.domain.model
 
-data class User(
+data class Card(
     val cardNumber: String?,
     val iconId: Int,
     val cardholderName: String?,

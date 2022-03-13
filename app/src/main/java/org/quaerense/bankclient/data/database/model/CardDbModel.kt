@@ -3,8 +3,8 @@ package org.quaerense.bankclient.data.database.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "user")
-data class UserDbModel(
+@Entity(tableName = "card")
+data class CardDbModel(
     @PrimaryKey val cardNumber: String,
     val type: String?,
     val cardholderName: String?,

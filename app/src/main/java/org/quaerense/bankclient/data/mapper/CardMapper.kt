@@ -1,16 +1,16 @@
 package org.quaerense.bankclient.data.mapper
 
 import org.quaerense.bankclient.R
-import org.quaerense.bankclient.data.database.model.UserDbModel
-import org.quaerense.bankclient.data.network.model.UserDto
+import org.quaerense.bankclient.data.database.model.CardDbModel
+import org.quaerense.bankclient.data.network.model.CardDto
 import org.quaerense.bankclient.domain.model.TransactionHistory
-import org.quaerense.bankclient.domain.model.User
+import org.quaerense.bankclient.domain.model.Card
 
-class UserMapper {
+class CardMapper {
 
-    fun mapDtoToDbModel(dto: UserDto) = with(dto) {
+    fun mapDtoToDbModel(dto: CardDto) = with(dto) {
         cardNumber?.let {
-            UserDbModel(
+            CardDbModel(
                 cardNumber = it,
                 type = type,
                 cardholderName = cardholderName,
@@ -21,10 +21,10 @@ class UserMapper {
     }
 
     fun mapDbModelToEntity(
-        dbModel: UserDbModel,
+        dbModel: CardDbModel,
         transactionHistory: List<TransactionHistory>
     ) = with(dbModel) {
-        User(
+        Card(
             cardNumber = cardNumber,
             iconId = getIconId(type),
             cardholderName = cardholderName,
