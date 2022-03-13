@@ -12,10 +12,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val repository = UserRepositoryImpl(application)
-        repository.loadData()
-        repository.getUserList().observe(this) {
-            Log.d("MainActivity", it.toString())
-        }
     }
 }

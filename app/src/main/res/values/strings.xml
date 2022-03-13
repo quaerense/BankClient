@@ -14,4 +14,8 @@
     <string name="label_rub">RUB</string>
     <string name="label_history">History</string>
     <string name="description_transaction_logo">Transaction logo</string>
+    <string name="main">Главная</string>
+    <string name="my_cards">Мои карты</string>
+    <string name="description_back_button">Back button</string>
+    <string name="description_marked">Marked</string>
 </resources>
