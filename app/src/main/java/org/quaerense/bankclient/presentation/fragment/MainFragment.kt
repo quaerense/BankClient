@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import org.quaerense.bankclient.R
 import org.quaerense.bankclient.databinding.FragmentMainBinding
-import org.quaerense.bankclient.presentation.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
@@ -24,8 +23,34 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.cvCard.setOnClickListener {
+            startMyCardsFragment()
+        }
+    }
+
+    private fun startMyCardsFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, MyCardsFragment.newInstance())
+            .commit()
+    }
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    companion object {
+
+        private const val CARD_NUMBER = "card number"
+
+        fun newInstance(cardNumber: String): MainFragment {
+            return MainFragment().apply {
+                arguments = Bundle().apply {
+                    putString(CARD_NUMBER, cardNumber)
+                }
+            }
+        }
     }
 }

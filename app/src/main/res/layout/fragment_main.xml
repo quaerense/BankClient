@@ -363,9 +363,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tvHistoryLabel"
                         tools:listitem="@layout/transaction_item" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

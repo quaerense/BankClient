@@ -16,7 +16,7 @@ interface UserDao {
     suspend fun insertTransactionHistory(transactionHistory: List<TransactionHistoryDbModel>)
 
     @Transaction
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM user ORDER BY cardNumber")
     fun getAll(): LiveData<List<UserWithTransactionHistory>>
 
     @Transaction
