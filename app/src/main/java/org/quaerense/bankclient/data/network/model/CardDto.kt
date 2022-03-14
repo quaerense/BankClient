@@ -26,5 +26,5 @@ data class CardDto(
 
     @SerializedName("transaction_history")
     @Expose
-    var transactionHistory: List<TransactionHistoryDto>? = null
+    var transactionHistory: List<TransactionDto>? = null
 )

@@ -3,7 +3,7 @@ package org.quaerense.bankclient.data.mapper
 import org.quaerense.bankclient.R
 import org.quaerense.bankclient.data.database.model.CardDbModel
 import org.quaerense.bankclient.data.network.model.CardDto
-import org.quaerense.bankclient.domain.model.TransactionHistory
+import org.quaerense.bankclient.domain.model.Transaction
 import org.quaerense.bankclient.domain.model.Card
 
 class CardMapper {
@@ -22,7 +22,7 @@ class CardMapper {
 
     fun mapDbModelToEntity(
         dbModel: CardDbModel,
-        transactionHistory: List<TransactionHistory>
+        transactionHistory: List<Transaction>
     ) = with(dbModel) {
         Card(
             cardNumber = cardNumber,

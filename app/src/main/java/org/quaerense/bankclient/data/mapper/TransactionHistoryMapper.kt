@@ -1,21 +1,21 @@
 package org.quaerense.bankclient.data.mapper
 
-import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
-import org.quaerense.bankclient.data.network.model.TransactionHistoryDto
-import org.quaerense.bankclient.domain.model.TransactionHistory
+import org.quaerense.bankclient.data.database.model.TransactionDbModel
+import org.quaerense.bankclient.data.network.model.TransactionDto
+import org.quaerense.bankclient.domain.model.Transaction
 
 class TransactionHistoryMapper {
 
     fun mapDtoToDbModel(
         cardNumber: String,
-        dto: List<TransactionHistoryDto>?
-    ): List<TransactionHistoryDbModel> {
-        val result = mutableListOf<TransactionHistoryDbModel>()
+        dto: List<TransactionDto>?
+    ): List<TransactionDbModel> {
+        val result = mutableListOf<TransactionDbModel>()
         if (dto == null) return result
 
         dto.map {
             result.add(
-                TransactionHistoryDbModel(
+                TransactionDbModel(
                     cardNumber = cardNumber,
                     title = it.title,
                     iconUrl = it.iconUrl,
@@ -28,12 +28,12 @@ class TransactionHistoryMapper {
         return result
     }
 
-    fun mapDbModelToEntity(dbModel: List<TransactionHistoryDbModel>): List<TransactionHistory> {
-        val result = mutableListOf<TransactionHistory>()
+    fun mapDbModelToEntity(dbModel: List<TransactionDbModel>): List<Transaction> {
+        val result = mutableListOf<Transaction>()
 
         dbModel.map {
             result.add(
-                TransactionHistory(
+                Transaction(
                     id = it.id,
                     title = it.title,
                     iconUrl = it.iconUrl,

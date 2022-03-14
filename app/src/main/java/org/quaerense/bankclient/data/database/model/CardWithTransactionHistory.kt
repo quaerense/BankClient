@@ -9,5 +9,5 @@ data class CardWithTransactionHistory(
         parentColumn = "cardNumber",
         entityColumn = "cardNumber"
     )
-    val transactionHistory: List<TransactionHistoryDbModel>
+    val transactionHistory: List<TransactionDbModel>
 )

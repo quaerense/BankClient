@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import org.quaerense.bankclient.data.database.model.CardDbModel
 import org.quaerense.bankclient.data.database.model.CardWithTransactionHistory
-import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
+import org.quaerense.bankclient.data.database.model.TransactionDbModel
 
 @Dao
 interface CardDao {
@@ -13,7 +13,7 @@ interface CardDao {
     suspend fun insert(card: CardDbModel)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTransactionHistory(transactionHistory: List<TransactionHistoryDbModel>)
+    suspend fun insertTransactionHistory(transactionHistory: List<TransactionDbModel>)
 
     @Transaction
     @Query("SELECT * FROM card ORDER BY cardNumber")

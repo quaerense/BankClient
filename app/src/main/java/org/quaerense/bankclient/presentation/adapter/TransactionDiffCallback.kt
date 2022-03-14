@@ -1,19 +1,19 @@
 package org.quaerense.bankclient.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import org.quaerense.bankclient.domain.model.TransactionHistory
+import org.quaerense.bankclient.domain.model.Transaction
 
-object TransactionDiffCallback : DiffUtil.ItemCallback<TransactionHistory>() {
+object TransactionDiffCallback : DiffUtil.ItemCallback<Transaction>() {
     override fun areItemsTheSame(
-        oldItem: TransactionHistory,
-        newItem: TransactionHistory
+        oldItem: Transaction,
+        newItem: Transaction
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: TransactionHistory,
-        newItem: TransactionHistory
+        oldItem: Transaction,
+        newItem: Transaction
     ): Boolean {
         return oldItem == newItem
     }

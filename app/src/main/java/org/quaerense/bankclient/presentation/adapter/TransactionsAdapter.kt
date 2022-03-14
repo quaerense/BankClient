@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import org.quaerense.bankclient.R
 import org.quaerense.bankclient.databinding.TransactionItemBinding
-import org.quaerense.bankclient.domain.model.TransactionHistory
+import org.quaerense.bankclient.domain.model.Transaction
 
 class TransactionsAdapter(private val context: Context) :
-    ListAdapter<TransactionHistory, TransactionViewHolder>(TransactionDiffCallback) {
+    ListAdapter<Transaction, TransactionViewHolder>(TransactionDiffCallback) {
 
     var currencyChar: String = UNDEFINED
 
