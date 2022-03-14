@@ -26,6 +26,8 @@ class MainFragment : Fragment() {
 
     private var cardNumber: String = UNDEFINED_CARD_NUMBER
 
+    private var currencyChar: String = UNDEFINED_CURRENCY_CHAR
+
     private val viewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
@@ -37,8 +39,6 @@ class MainFragment : Fragment() {
     private val preferences by lazy {
         requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
     }
-
-    private var currencyChar: String = UNDEFINED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -179,7 +179,7 @@ class MainFragment : Fragment() {
             )
         }
 
-        return UNDEFINED
+        return UNDEFINED_CURRENCY_CHAR
     }
 
     private fun launchMyCardsFragment() {
@@ -216,7 +216,7 @@ class MainFragment : Fragment() {
         private const val GBP = "GBP"
         private const val EUR = "EUR"
         private const val RUB = "RUB"
-        private const val UNDEFINED = ""
+        private const val UNDEFINED_CURRENCY_CHAR = ""
         private const val CURRENCY_PREFERENCE = "currency preference"
 
         fun newInstance() = MainFragment()

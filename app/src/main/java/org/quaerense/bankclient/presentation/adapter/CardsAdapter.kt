@@ -1,12 +1,15 @@
 package org.quaerense.bankclient.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.quaerense.bankclient.databinding.CardItemBinding
 import org.quaerense.bankclient.domain.model.Card
 
-class CardsAdapter : ListAdapter<Card, CardViewHolder>(CardDiffCallback) {
+class CardsAdapter(private val cardNumber: String) :
+    ListAdapter<Card, CardViewHolder>(CardDiffCallback) {
+
     var onCardClickListener: ((item: Card) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -25,9 +28,17 @@ class CardsAdapter : ListAdapter<Card, CardViewHolder>(CardDiffCallback) {
         with(holder.binding) {
             ivCardLogo.setImageResource(card.iconId)
             tvCardNumber.text = card.cardNumber
+            if (card.cardNumber == cardNumber) {
+                ivMark.visibility = View.VISIBLE
+            }
             root.setOnClickListener {
                 onCardClickListener?.invoke(card)
             }
         }
+    }
+
+    companion object {
+
+        private const val UNDEFINED = ""
     }
 }

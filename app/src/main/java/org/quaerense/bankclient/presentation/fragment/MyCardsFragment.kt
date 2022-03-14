@@ -11,6 +11,7 @@ import org.quaerense.bankclient.R
 import org.quaerense.bankclient.databinding.FragmentMyCardsBinding
 import org.quaerense.bankclient.presentation.MainActivity.Companion.APP_PREFERENCES
 import org.quaerense.bankclient.presentation.MainActivity.Companion.CARD_NUMBER
+import org.quaerense.bankclient.presentation.MainActivity.Companion.UNDEFINED_CARD_NUMBER
 import org.quaerense.bankclient.presentation.adapter.CardsAdapter
 import org.quaerense.bankclient.presentation.viewmodel.MyCardsViewModel
 
@@ -20,15 +21,22 @@ class MyCardsFragment : Fragment() {
     private val binding: FragmentMyCardsBinding
         get() = _binding ?: throw RuntimeException("MyCardsFragment is null")
 
+    private var cardNumber = UNDEFINED_CARD_NUMBER
+
+    private var isFirstLaunch = true
+
     private val viewModel by lazy {
         ViewModelProvider(this)[MyCardsViewModel::class.java]
     }
 
-    private var isFirstLaunch = true
+    private val preferences by lazy {
+        requireActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
+        parseCardNumberPreference()
     }
 
     override fun onCreateView(
@@ -51,7 +59,7 @@ class MyCardsFragment : Fragment() {
         binding.ivButtonBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        val adapter = CardsAdapter()
+        val adapter = CardsAdapter(cardNumber)
         adapter.onCardClickListener = { card ->
             card.cardNumber?.let { cardNumber ->
                 launchMainFragment(cardNumber)
@@ -91,6 +99,11 @@ class MyCardsFragment : Fragment() {
         }
 
         isFirstLaunch = args.getBoolean(PARAM_FIRST_LAUNCH)
+    }
+
+    private fun parseCardNumberPreference() {
+        cardNumber =
+            preferences.getString(CARD_NUMBER, UNDEFINED_CARD_NUMBER) ?: UNDEFINED_CARD_NUMBER
     }
 
     companion object {
