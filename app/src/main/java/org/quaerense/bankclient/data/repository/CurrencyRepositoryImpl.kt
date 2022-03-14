@@ -23,7 +23,24 @@ class CurrencyRepositoryImpl(private val application: Application) : CurrencyRep
         )
     }
 
-    override suspend fun getCurrency(charCode: String): Currency {
-        return mapper.mapDbModelToEntity(dao.get(charCode))
+    override fun getCurrency(charCode: String): Currency {
+        val runnable = object : Runnable {
+            @Volatile
+            private var currency: Currency = Currency("", "", -1.0)
+
+            override fun run() {
+                val dbModel = dao.get(charCode)
+                currency = mapper.mapDbModelToEntity(dbModel)
+            }
+
+            fun getCurrency(): Currency {
+                return currency
+            }
+        }
+        val thread = Thread(runnable)
+        thread.start()
+        thread.join()
+
+        return runnable.getCurrency()
     }
 }

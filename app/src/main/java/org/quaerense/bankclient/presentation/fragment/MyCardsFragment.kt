@@ -48,7 +48,9 @@ class MyCardsFragment : Fragment() {
         } else {
             binding.ivButtonBack.visibility = View.VISIBLE
         }
-
+        binding.ivButtonBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
         val adapter = CardsAdapter()
         adapter.onCardClickListener = { card ->
             card.cardNumber?.let { cardNumber ->
@@ -68,6 +70,7 @@ class MyCardsFragment : Fragment() {
 
     private fun launchMainFragment(cardNumber: String) {
         setPreferences(cardNumber)
+        requireActivity().supportFragmentManager.popBackStack()
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFragment.newInstance())
             .commit()

@@ -34,6 +34,7 @@ class TransactionHistoryMapper {
         dbModel.map {
             result.add(
                 TransactionHistory(
+                    id = it.id,
                     title = it.title,
                     iconUrl = it.iconUrl,
                     date = it.date,

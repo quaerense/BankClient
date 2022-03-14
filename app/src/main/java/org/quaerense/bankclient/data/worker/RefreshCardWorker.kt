@@ -26,6 +26,7 @@ class RefreshCardWorker(
             try {
                 val cardContainerDto = apiService.getUsersAccountData()
                 val cards = cardContainerDto.cards
+                dao.deleteTransactionHistory()
                 cards?.map {
                     val cardDbModel = cardMapper.mapDtoToDbModel(it)
                     if (cardDbModel != null) {

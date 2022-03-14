@@ -42,14 +42,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
@@ -134,7 +132,7 @@
                         tools:text="12/22" />
 
                     <TextView
-                        android:id="@+id/tvConvertedBalance"
+                        android:id="@+id/tvConvertedBalanceChar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="22dp"
@@ -146,7 +144,20 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvCardholderName"
-                        tools:text="£2 125,12" />
+                        tools:text="£" />
+
+                    <TextView
+                        android:id="@+id/tvConvertedBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/tvConvertedBalanceChar"
+                        app:layout_constraintTop_toTopOf="@id/tvConvertedBalanceChar"
+                        app:layout_constraintStart_toEndOf="@id/tvConvertedBalanceChar"
+                        app:layout_constraintTop_toBottomOf="@id/tvCardholderName"
+                        tools:text="2 125,12" />
 
                     <TextView
                         android:id="@+id/tvYourBalanceLabel"
@@ -322,10 +333,9 @@
                 android:id="@+id/cvHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="9dp"
                 android:layout_marginTop="50dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="9dp"
                 app:cardCornerRadius="16dp"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -358,6 +368,7 @@
                         android:layout_marginStart="22dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="18dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvHistoryLabel"

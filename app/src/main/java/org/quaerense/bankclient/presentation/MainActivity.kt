@@ -3,15 +3,19 @@ package org.quaerense.bankclient.presentation
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import org.quaerense.bankclient.R
 import org.quaerense.bankclient.presentation.fragment.MainFragment
 import org.quaerense.bankclient.presentation.fragment.MyCardsFragment
+import org.quaerense.bankclient.presentation.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        ViewModelProvider(this)[MainViewModel::class.java]
 
         val sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
         val cardNumber = sharedPreferences.getString(CARD_NUMBER, UNDEFINED_CARD_NUMBER) ?: UNDEFINED_CARD_NUMBER
@@ -21,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             launchMainFragment()
         }
+
     }
 
     private fun launchMyCardsFragment() {

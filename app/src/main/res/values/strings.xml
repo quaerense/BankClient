@@ -6,6 +6,7 @@
     <string name="valid_thru">VALID THRU</string>
     <string name="label_your_balance">Your balance</string>
     <string name="label_change_currency">Change currency</string>
+    <string name="char_usd">$</string>
     <string name="char_gbp">£</string>
     <string name="label_gbp">GBP</string>
     <string name="char_eur">€</string>

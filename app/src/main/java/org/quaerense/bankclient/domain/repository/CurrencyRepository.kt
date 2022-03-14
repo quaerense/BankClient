@@ -6,5 +6,5 @@ interface CurrencyRepository {
 
     fun loadData()
 
-    suspend fun getCurrency(charCode: String): Currency
+    fun getCurrency(charCode: String): Currency
 }

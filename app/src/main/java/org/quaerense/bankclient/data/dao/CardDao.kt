@@ -5,7 +5,6 @@ import androidx.room.*
 import org.quaerense.bankclient.data.database.model.CardDbModel
 import org.quaerense.bankclient.data.database.model.CardWithTransactionHistory
 import org.quaerense.bankclient.data.database.model.TransactionHistoryDbModel
-import org.quaerense.bankclient.domain.model.Card
 
 @Dao
 interface CardDao {
@@ -23,4 +22,7 @@ interface CardDao {
     @Transaction
     @Query("SELECT * FROM card WHERE cardNumber = :cardNumber LIMIT 1")
     fun get(cardNumber: String): LiveData<CardWithTransactionHistory>
+
+    @Query("DELETE FROM transaction_history")
+    fun deleteTransactionHistory()
 }
