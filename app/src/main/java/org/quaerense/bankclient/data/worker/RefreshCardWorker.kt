@@ -2,14 +2,13 @@ package org.quaerense.bankclient.data.worker
 
 import android.content.Context
 import androidx.work.CoroutineWorker
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkerParameters
-import kotlinx.coroutines.delay
 import org.quaerense.bankclient.data.database.AppDatabase
-import org.quaerense.bankclient.data.mapper.TransactionMapper
 import org.quaerense.bankclient.data.mapper.CardMapper
+import org.quaerense.bankclient.data.mapper.TransactionMapper
 import org.quaerense.bankclient.data.network.ApiFactory
+import java.util.concurrent.TimeUnit
 
 class RefreshCardWorker(
     context: Context,
@@ -22,39 +21,40 @@ class RefreshCardWorker(
     private val transactionHistoryMapper = TransactionMapper()
 
     override suspend fun doWork(): Result {
-        while (true) {
-            try {
-                val cardContainerDto = apiService.getUsersAccountData()
-                val cards = cardContainerDto.cards
-                dao.deleteTransactionHistory()
-                cards?.map {
-                    val cardDbModel = cardMapper.mapDtoToDbModel(it)
-                    if (cardDbModel != null) {
-                        val transactionHistoryDbModel =
-                            transactionHistoryMapper.mapDtoToDbModel(
-                                cardDbModel.cardNumber,
-                                it.transactionHistory
-                            )
-                        dao.insert(cardDbModel)
-                        dao.insertTransactionHistory(transactionHistoryDbModel)
-                    }
+        try {
+            val cardContainerDto = apiService.getUsersAccountData()
+            val cards = cardContainerDto.cards
+            dao.deleteTransactionHistory()
+            cards?.map {
+                val cardDbModel = cardMapper.mapDtoToDbModel(it)
+                if (cardDbModel != null) {
+                    val transactionHistoryDbModel =
+                        transactionHistoryMapper.mapDtoToDbModel(
+                            cardDbModel.cardNumber,
+                            it.transactionHistory
+                        )
+                    dao.insert(cardDbModel)
+                    dao.insertTransactionHistory(transactionHistoryDbModel)
                 }
-            } catch (e: Exception) {
-
             }
-
-            delay(DELAY_MILLIS)
+        } catch (e: Exception) {
+            Result.failure()
         }
+
+        return Result.success()
     }
 
     companion object {
 
         const val NAME = "RefreshCardWorker"
+        private const val REPEAT_INTERVAL = 15L
 
-        private const val DELAY_MILLIS = 300000L
-
-        fun makeRequest(): OneTimeWorkRequest {
-            return OneTimeWorkRequestBuilder<RefreshCardWorker>().build()
+        fun makeRequest(): PeriodicWorkRequest {
+            return PeriodicWorkRequest.Builder(
+                CoroutineWorker::class.java,
+                REPEAT_INTERVAL,
+                TimeUnit.MINUTES
+            ).build()
         }
     }
 }

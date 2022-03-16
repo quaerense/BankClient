@@ -1,7 +1,7 @@
 package org.quaerense.bankclient.data.repository
 
 import android.app.Application
-import androidx.work.ExistingWorkPolicy
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkManager
 import org.quaerense.bankclient.data.database.AppDatabase
 import org.quaerense.bankclient.data.mapper.CurrencyMapper
@@ -16,9 +16,9 @@ class CurrencyRepositoryImpl(private val application: Application) : CurrencyRep
 
     override fun loadData() {
         val workManager = WorkManager.getInstance(application)
-        workManager.enqueueUniqueWork(
+        workManager.enqueueUniquePeriodicWork(
             RefreshCurrencyWorker.NAME,
-            ExistingWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.REPLACE,
             RefreshCurrencyWorker.makeRequest()
         )
     }

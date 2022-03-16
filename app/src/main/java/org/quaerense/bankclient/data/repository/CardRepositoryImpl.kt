@@ -2,7 +2,7 @@ package org.quaerense.bankclient.data.repository
 
 import android.app.Application
 import androidx.lifecycle.Transformations
-import androidx.work.ExistingWorkPolicy
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkManager
 import org.quaerense.bankclient.data.database.AppDatabase
 import org.quaerense.bankclient.data.mapper.CardMapper
@@ -18,9 +18,9 @@ class CardRepositoryImpl(private val application: Application) : CardRepository 
 
     override fun loadData() {
         val workManager = WorkManager.getInstance(application)
-        workManager.enqueueUniqueWork(
+        workManager.enqueueUniquePeriodicWork(
             RefreshCardWorker.NAME,
-            ExistingWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.REPLACE,
             RefreshCardWorker.makeRequest()
         )
     }

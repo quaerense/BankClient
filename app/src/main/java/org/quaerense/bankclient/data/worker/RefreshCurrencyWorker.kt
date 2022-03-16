@@ -1,14 +1,11 @@
 package org.quaerense.bankclient.data.worker
 
 import android.content.Context
-import androidx.work.CoroutineWorker
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkerParameters
-import kotlinx.coroutines.delay
+import androidx.work.*
 import org.quaerense.bankclient.data.database.AppDatabase
 import org.quaerense.bankclient.data.mapper.CurrencyMapper
 import org.quaerense.bankclient.data.network.ApiFactory
+import java.util.concurrent.TimeUnit
 
 class RefreshCurrencyWorker(
     context: Context,
@@ -20,28 +17,29 @@ class RefreshCurrencyWorker(
     private val mapper = CurrencyMapper()
 
     override suspend fun doWork(): Result {
-        while (true) {
-            try {
-                val jsonContainerDto = apiService.getCurrencyRate()
-                val currenciesDto = mapper.mapJsonContainerToList(jsonContainerDto)
-                val currenciesDbModel = currenciesDto.map { mapper.mapDtoToDbModel(it) }
-                dao.insertAll(currenciesDbModel)
-            } catch (e: Exception) {
-
-            }
-
-            delay(DELAY_MILLIS)
+        try {
+            val jsonContainerDto = apiService.getCurrencyRate()
+            val currenciesDto = mapper.mapJsonContainerToList(jsonContainerDto)
+            val currenciesDbModel = currenciesDto.map { mapper.mapDtoToDbModel(it) }
+            dao.insertAll(currenciesDbModel)
+        } catch (e: Exception) {
+            return Result.failure()
         }
+
+        return Result.success()
     }
 
     companion object {
 
         const val NAME = "RefreshCurrencyWorker"
+        private const val REPEAT_INTERVAL = 15L
 
-        private const val DELAY_MILLIS = 300000L
-
-        fun makeRequest(): OneTimeWorkRequest {
-            return OneTimeWorkRequestBuilder<RefreshCurrencyWorker>().build()
+        fun makeRequest(): PeriodicWorkRequest {
+            return PeriodicWorkRequest.Builder(
+                CoroutineWorker::class.java,
+                REPEAT_INTERVAL,
+                TimeUnit.MINUTES
+            ).build()
         }
     }
 }
