@@ -6,5 +6,6 @@ data class Card(
     val cardholderName: String?,
     val valid: String?,
     val balance: Double?,
+    val convertedBalance: Double? = 0.0,
     val transactionHistory: List<Transaction>?
 )

@@ -30,7 +30,9 @@ class CurrencyRepositoryImpl(private val application: Application) : CurrencyRep
 
             override fun run() {
                 val dbModel = dao.get(charCode)
-                currency = mapper.mapDbModelToEntity(dbModel)
+                if (dbModel != null) {
+                    currency = mapper.mapDbModelToEntity(dbModel)
+                }
             }
 
             fun getCurrency(): Currency {

@@ -34,13 +34,9 @@ class TransactionsAdapter :
             tvTransactionTitle.text = transaction.title
             tvTransactionDate.text = transaction.date
             val amount =
-                "${holder.itemView.context.getString(R.string.char_usd)} ${
-                    transaction.amount?.substring(
-                        1
-                    )
-                }"
+                "${holder.itemView.context.getString(R.string.char_usd)} ${transaction.amount}"
             tvTransactionAmount.text = amount
-            val convertedAmount = transaction.convertedAmount
+            val convertedAmount = String.format("%.2f", transaction.convertedAmount)
             tvConvertedTransactionAmount.text = convertedAmount
             val currencyCharWithMinus = "- $currencyChar"
             tvTransactionCurrencyChar.text = currencyCharWithMinus

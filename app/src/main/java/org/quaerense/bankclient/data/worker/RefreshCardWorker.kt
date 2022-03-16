@@ -7,7 +7,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.delay
 import org.quaerense.bankclient.data.database.AppDatabase
-import org.quaerense.bankclient.data.mapper.TransactionHistoryMapper
+import org.quaerense.bankclient.data.mapper.TransactionMapper
 import org.quaerense.bankclient.data.mapper.CardMapper
 import org.quaerense.bankclient.data.network.ApiFactory
 
@@ -19,7 +19,7 @@ class RefreshCardWorker(
     private val apiService = ApiFactory.apiService
     private val dao = AppDatabase.getInstance(context).cardDao()
     private val cardMapper = CardMapper()
-    private val transactionHistoryMapper = TransactionHistoryMapper()
+    private val transactionHistoryMapper = TransactionMapper()
 
     override suspend fun doWork(): Result {
         while (true) {

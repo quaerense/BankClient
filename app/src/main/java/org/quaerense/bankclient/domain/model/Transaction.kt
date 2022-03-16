@@ -5,6 +5,6 @@ data class Transaction(
     val title: String?,
     val iconUrl: String?,
     val date: String?,
-    val amount: String?,
-    var convertedAmount: String? = "0"
+    val amount: Double?,
+    var convertedAmount: Double? = 0.0
 )

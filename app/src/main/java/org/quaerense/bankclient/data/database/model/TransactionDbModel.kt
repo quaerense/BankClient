@@ -10,5 +10,5 @@ data class TransactionDbModel(
     val title: String?,
     val iconUrl: String?,
     val date: String?,
-    val amount: String?
+    val amount: Double?
 )

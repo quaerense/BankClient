@@ -6,7 +6,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import org.quaerense.bankclient.data.database.AppDatabase
 import org.quaerense.bankclient.data.mapper.CardMapper
-import org.quaerense.bankclient.data.mapper.TransactionHistoryMapper
+import org.quaerense.bankclient.data.mapper.TransactionMapper
 import org.quaerense.bankclient.data.worker.RefreshCardWorker
 import org.quaerense.bankclient.domain.repository.CardRepository
 
@@ -14,7 +14,7 @@ class CardRepositoryImpl(private val application: Application) : CardRepository 
 
     private val dao = AppDatabase.getInstance(application).cardDao()
     private val cardMapper = CardMapper()
-    private val transactionHistoryMapper = TransactionHistoryMapper()
+    private val transactionHistoryMapper = TransactionMapper()
 
     override fun loadData() {
         val workManager = WorkManager.getInstance(application)

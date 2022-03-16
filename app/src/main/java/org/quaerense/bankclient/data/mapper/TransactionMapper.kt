@@ -4,7 +4,7 @@ import org.quaerense.bankclient.data.database.model.TransactionDbModel
 import org.quaerense.bankclient.data.network.model.TransactionDto
 import org.quaerense.bankclient.domain.model.Transaction
 
-class TransactionHistoryMapper {
+class TransactionMapper {
 
     fun mapDtoToDbModel(
         cardNumber: String,
@@ -20,7 +20,7 @@ class TransactionHistoryMapper {
                     title = it.title,
                     iconUrl = it.iconUrl,
                     date = it.date,
-                    amount = it.amount
+                    amount = it.amount?.substring(1)?.toDouble() ?: 0.0
                 )
             )
         }

@@ -172,26 +172,12 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
                     adapter.submitList(card.transactionHistory?.map { transaction ->
                         transaction.apply {
-                            convertedAmount = convertAmount(amount, currencyRatio)
+                            convertedAmount = amount?.times(currencyRatio)
                         }
                     })
                 }
             }
         }
-    }
-
-    private fun convertAmount(
-        amount: String?,
-        currencyRatio: Double
-    ): String {
-        if (amount != null) {
-            return String.format(
-                "%.2f",
-                (amount.toDouble() * currencyRatio).toString().substring(1).toDouble()
-            )
-        }
-
-        return UNDEFINED_CURRENCY_CHAR
     }
 
     private fun launchMyCardsFragment() {
