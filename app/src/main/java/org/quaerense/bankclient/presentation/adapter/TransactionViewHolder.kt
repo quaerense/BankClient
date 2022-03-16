@@ -1,6 +1,7 @@
 package org.quaerense.bankclient.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import org.quaerense.bankclient.databinding.TransactionItemBinding
+import org.quaerense.bankclient.databinding.ItemTransactionBinding
 
-class TransactionViewHolder(val binding: TransactionItemBinding) : RecyclerView.ViewHolder(binding.root)
+class TransactionViewHolder(val binding: ItemTransactionBinding) :
+    RecyclerView.ViewHolder(binding.root)

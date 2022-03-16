@@ -1,6 +1,6 @@
 package org.quaerense.bankclient.presentation.adapter
 
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import org.quaerense.bankclient.databinding.CardItemBinding
 
-class CardViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root)
+class CardViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)

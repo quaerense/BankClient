@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.quaerense.bankclient.R
 import org.quaerense.bankclient.databinding.FragmentMyCardsBinding
 import org.quaerense.bankclient.presentation.MainActivity.Companion.APP_PREFERENCES
@@ -15,7 +16,7 @@ import org.quaerense.bankclient.presentation.MainActivity.Companion.UNDEFINED_CA
 import org.quaerense.bankclient.presentation.adapter.CardsAdapter
 import org.quaerense.bankclient.presentation.viewmodel.MyCardsViewModel
 
-class MyCardsFragment : Fragment() {
+class MyCardsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private var _binding: FragmentMyCardsBinding? = null
     private val binding: FragmentMyCardsBinding
@@ -69,11 +70,23 @@ class MyCardsFragment : Fragment() {
         viewModel.getCardListUseCase().observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
+        binding.srlLoadCardList.setOnRefreshListener(this)
     }
 
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    override fun onRefresh() {
+        binding.srlLoadCardList.isRefreshing = true
+        loadData()
+        binding.srlLoadCardList.isRefreshing = false
+    }
+
+    private fun loadData() {
+        viewModel.loadData()
     }
 
     private fun launchMainFragment(cardNumber: String) {

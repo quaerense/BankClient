@@ -26,7 +26,7 @@ class CurrencyRepositoryImpl(private val application: Application) : CurrencyRep
     override fun getCurrency(charCode: String): Currency {
         val runnable = object : Runnable {
             @Volatile
-            private var currency: Currency = Currency("", "", -1.0)
+            private lateinit var currency: Currency
 
             override fun run() {
                 val dbModel = dao.get(charCode)

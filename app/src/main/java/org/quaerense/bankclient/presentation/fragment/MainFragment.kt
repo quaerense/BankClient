@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.quaerense.bankclient.R
 import org.quaerense.bankclient.databinding.FragmentMainBinding
 import org.quaerense.bankclient.presentation.MainActivity.Companion.APP_PREFERENCES
@@ -18,7 +19,7 @@ import org.quaerense.bankclient.presentation.MainActivity.Companion.UNDEFINED_CA
 import org.quaerense.bankclient.presentation.adapter.TransactionsAdapter
 import org.quaerense.bankclient.presentation.viewmodel.MainViewModel
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
@@ -33,7 +34,7 @@ class MainFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        TransactionsAdapter(requireContext())
+        TransactionsAdapter()
     }
 
     private val preferences by lazy {
@@ -57,6 +58,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvTransactionHistory.adapter = adapter
+        binding.srlLoadCardInfo.setOnRefreshListener(this)
         parseCurrencyPreference()
         setOnClickListeners()
         setObservers()
@@ -66,6 +68,16 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    override fun onRefresh() {
+        binding.srlLoadCardInfo.isRefreshing = true
+        loadData()
+        binding.srlLoadCardInfo.isRefreshing = false
+    }
+
+    private fun loadData() {
+        viewModel.loadData()
     }
 
     private fun setOnClickListeners() {

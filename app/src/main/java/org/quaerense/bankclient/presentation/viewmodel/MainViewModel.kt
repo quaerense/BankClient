@@ -29,8 +29,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _currencyRatio.value = getCurrencyRatioUseCase(targetCurrencyCharCode)
     }
 
-    init {
+    fun loadData() {
         loadCurrencyDataUseCase()
         loadCardDataUseCase()
+    }
+
+    init {
+        loadData()
     }
 }

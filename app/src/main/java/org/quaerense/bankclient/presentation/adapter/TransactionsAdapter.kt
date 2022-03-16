@@ -1,21 +1,20 @@
 package org.quaerense.bankclient.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.squareup.picasso.Picasso
 import org.quaerense.bankclient.R
-import org.quaerense.bankclient.databinding.TransactionItemBinding
+import org.quaerense.bankclient.databinding.ItemTransactionBinding
 import org.quaerense.bankclient.domain.model.Transaction
 
-class TransactionsAdapter(private val context: Context) :
+class TransactionsAdapter :
     ListAdapter<Transaction, TransactionViewHolder>(TransactionDiffCallback) {
 
     var currencyChar: String = UNDEFINED
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val binding = TransactionItemBinding.inflate(
+        val binding = ItemTransactionBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -35,7 +34,11 @@ class TransactionsAdapter(private val context: Context) :
             tvTransactionTitle.text = transaction.title
             tvTransactionDate.text = transaction.date
             val amount =
-                "${context.getString(R.string.char_usd)} ${transaction.amount?.substring(1)}"
+                "${holder.itemView.context.getString(R.string.char_usd)} ${
+                    transaction.amount?.substring(
+                        1
+                    )
+                }"
             tvTransactionAmount.text = amount
             val convertedAmount = transaction.convertedAmount
             tvConvertedTransactionAmount.text = convertedAmount
