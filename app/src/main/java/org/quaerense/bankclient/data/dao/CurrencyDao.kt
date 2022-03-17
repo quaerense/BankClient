@@ -13,5 +13,5 @@ interface CurrencyDao {
     suspend fun insertAll(currencies: List<CurrencyDbModel>)
 
     @Query("SELECT * FROM currency WHERE charCode = :charCode LIMIT 1")
-    fun get(charCode: String): CurrencyDbModel
+    suspend fun get(charCode: String): CurrencyDbModel?
 }

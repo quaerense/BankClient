@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.quaerense.bankclient.data.repository.CardRepositoryImpl
 import org.quaerense.bankclient.data.repository.CurrencyRepositoryImpl
 import org.quaerense.bankclient.domain.usecase.GetCardUseCase
@@ -26,7 +28,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         get() = _currencyRatio
 
     fun setCurrency(targetCurrencyCharCode: String) {
-        _currencyRatio.value = getCurrencyRatioUseCase(targetCurrencyCharCode)
+        viewModelScope.launch {
+            _currencyRatio.value = getCurrencyRatioUseCase(targetCurrencyCharCode)
+        }
     }
 
     fun loadData() {
