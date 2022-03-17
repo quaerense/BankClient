@@ -38,6 +38,7 @@ class RefreshCardWorker(
                 }
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             Result.failure()
         }
 
@@ -51,7 +52,7 @@ class RefreshCardWorker(
 
         fun makeRequest(): PeriodicWorkRequest {
             return PeriodicWorkRequest.Builder(
-                CoroutineWorker::class.java,
+                RefreshCardWorker::class.java,
                 REPEAT_INTERVAL,
                 TimeUnit.MINUTES
             ).build()

@@ -23,6 +23,7 @@ class RefreshCurrencyWorker(
             val currenciesDbModel = currenciesDto.map { mapper.mapDtoToDbModel(it) }
             dao.insertAll(currenciesDbModel)
         } catch (e: Exception) {
+            e.printStackTrace()
             return Result.failure()
         }
 
@@ -36,7 +37,7 @@ class RefreshCurrencyWorker(
 
         fun makeRequest(): PeriodicWorkRequest {
             return PeriodicWorkRequest.Builder(
-                CoroutineWorker::class.java,
+                RefreshCurrencyWorker::class.java,
                 REPEAT_INTERVAL,
                 TimeUnit.MINUTES
             ).build()
