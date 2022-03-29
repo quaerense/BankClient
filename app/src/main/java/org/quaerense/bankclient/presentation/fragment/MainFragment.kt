@@ -26,7 +26,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         get() = _binding ?: throw RuntimeException("FragmentMainBinding is null")
 
     private var cardNumber: String = UNDEFINED_CARD_NUMBER
-
     private var currencyChar: String = UNDEFINED_CURRENCY_CHAR
 
     private val viewModel by lazy {
