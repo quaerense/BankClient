@@ -6,6 +6,5 @@ data class Transaction(
     val iconUrl: String?,
     val date: String?,
     val amount: Double?,
-    var convertedAmount: Double? = 0.0,
-    val convertedAmountChar: String? = ""
+    var convertedAmount: Double? = 0.0
 )
